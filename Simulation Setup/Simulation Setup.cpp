@@ -72,9 +72,33 @@ std::string ReadNumberStrRestricted(std::string question, int low, int high)
 	return ss.str();
 }
 
+template<typename T>
+std::string Crop(T in, unsigned int n)
+{
+	std::stringstream s_in;
+	s_in << in;
+	std::string sstr = s_in.str();
+	while (sstr.length() < n)
+	{
+		sstr += " ";
+	}
+	while (sstr.length() > n)
+	{
+		sstr.pop_back();
+	}
+	return sstr;
+}
+
+void WhiteLine()
+{
+	std::cout << "\n";
+}
+
 int main()
 {
 	/****************************************************** DEKLARATION OF CONSTANTS ********************************************************************/
+	//deklaration of numbers
+	const unsigned int maxLength = 80;
 	//deklaration of strings
 	std::string name;
 	std::string time;
@@ -96,7 +120,7 @@ int main()
 	{
 		/****************************************************** NAME ********************************************************************/
 		{
-			std::cout << "What should your new simulation be called?\n";
+			std::cout << Crop("What should your new simulation be called?", maxLength);
 			std::cin >> name;
 			std::string nameDouble = name;
 			std::string lastChars;
@@ -115,41 +139,48 @@ int main()
 					name += ".txt";
 				}
 			}
+			WhiteLine();
 		}
 		/****************************************************** TIME VARIABLE ********************************************************************/
 		{
-			std::cout << "Which name does your time variable have?\n";
+			std::cout << Crop("Which name does your time variable have?", maxLength);
 			std::cin >> time;
+			WhiteLine();
 		}
 		/****************************************************** Y VARIABLES ********************************************************************/
 		{
-			int nIYVars = ReadNumberInt("How many different variables do you want to feature on y axis?\n");
+			int nIYVars = ReadNumberInt(Crop("How many different variables do you want to feature on the y axis?", maxLength));
 			for (int i = 0; i < nIYVars; )
 			{
-				std::cout << "Enter your " << ++i << ". y variable! ";
+				std::stringstream tempSS("Enter your ");
+				tempSS << ++i << ". y variable!";
+				std::cout << Crop(tempSS.str(), maxLength);
 				std::string temp;
 				std::cin >> temp;
 				yValues += temp + " ";
 			}
 			yValues.pop_back();
+			WhiteLine();
 		}
 		/****************************************************** REPEATING VALUE ********************************************************************/
 		{
-			repeating = ReadNumberStr("How often should the program execute your code per second at the start?\n(speed adjustment possible in the program, too)\n");
+			std::cout << "The Engine calculates your code several times per second.\nYou can speed things up or slow them down also later on.\nThis value is ranged from 5 to 1200 per second.\n";
+			repeating = ReadNumberStrRestricted(Crop("So, how often should the program execute your code per second at the start?", maxLength), 5, 1200);
+			WhiteLine();
 		}
 		/****************************************************** AXIS COLOR ********************************************************************/
 		{
 			bool tempB = false;
 			do {
-				std::cout << "Next, enter the color of the axis, please. Do you want to type it in as RGB values?\n";
+				std::cout << "Next, enter the color of the axis, please.\n" << Crop("Do you want to type it in as RGB values?", maxLength);
 				std::string tempS;
 				std::cin >> tempS;
 				if (tempS == "Yes" || tempS == "yes")
 				{
 					tempB = false;
-					axisColor += ReadNumberStrRestricted("Now enter the 'red' part: ", 0, 255) + " ";
-					axisColor += ReadNumberStrRestricted("Now enter the 'green' part: ", 0, 255) + " ";
-					axisColor += ReadNumberStrRestricted("Now enter the 'blue' part: ", 0, 255);
+					axisColor += ReadNumberStrRestricted(Crop("Now enter the 'red' part:", maxLength), 0, 255) + " ";
+					axisColor += ReadNumberStrRestricted(Crop("Now enter the 'green' part:", maxLength), 0, 255) + " ";
+					axisColor += ReadNumberStrRestricted(Crop("Now enter the 'blue' part: ", maxLength), 0, 255);
 				}
 				else if (tempS == "No" || tempS == "no")
 				{
@@ -157,7 +188,7 @@ int main()
 					std::string tempS;
 					tempS += "These colors are available:\n";
 					tempS += "White (1) - Gray (2) - Light Gray (3) - Red (4) - Green (5)\nBlue (6) - Yellow (7) - Cyan (8) - Magenta (9) - Orange (10)\n";
-					tempS += "Please pick yours and enter the specific number!\n";
+					tempS += Crop("Please pick yours and enter the specific number!", maxLength);
 					int tempI = ReadNumberIntRestricted(tempS, 1, 10);
 					switch (tempI)
 					{
@@ -199,21 +230,22 @@ int main()
 					std::cout << "Didn't understand you. Sorry :(\nPlease enter 'yes' or 'no'.\n";
 				}
 			} while (tempB);
+			WhiteLine();
 		}
 		/****************************************************** GRAPH COLOR ********************************************************************/
 		
 		{
 			bool tempB = false;
 			do {
-				std::cout << "Last step: enter the color of the graph, please. Do you want to type it in as RGB values?\n";
+				std::cout << "Last step: enter the color of the graph, please.\n" << Crop("Do you want to type it in as RGB values?", maxLength);
 				std::string tempS;
 				std::cin >> tempS;
 				if (tempS == "Yes" || tempS == "yes")
 				{
 					tempB = false;
-					graphColor += ReadNumberStrRestricted("Now enter the 'red' part: ", 0, 255) + " ";
-					graphColor += ReadNumberStrRestricted("Now enter the 'green' part: ", 0, 255) + " ";
-					graphColor += ReadNumberStrRestricted("Now enter the 'blue' part: ", 0, 255);
+					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'green' part:", maxLength), 0, 255) + " ";
+					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'blue' part: ", maxLength), 0, 255);
+					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'red' part:", maxLength), 0, 255) + " ";
 				}
 				else if (tempS == "No" || tempS == "no")
 				{
@@ -221,7 +253,7 @@ int main()
 					std::string tempS;
 					tempS += "These colors are available:\n";
 					tempS += "White (1) - Gray (2) - Light Gray (3) - Red (4) - Green (5)\nBlue (6) - Yellow (7) - Cyan (8) - Magenta (9) - Orange (10)\n";
-					tempS += "Please pick yours and enter the specific number!\n";
+					tempS += Crop("Please pick yours and enter the specific number!", maxLength);
 					int tempI = ReadNumberIntRestricted(tempS, 1, 10);
 					switch (tempI)
 					{
@@ -263,6 +295,7 @@ int main()
 					std::cout << "Didn't understand you. Sorry :(\nPlease enter 'yes' or 'no'.\n";
 				}
 			} while (tempB);
+			WhiteLine();
 		}
 		/****************************************************** FILES.TXT ********************************************************************/
 		{
@@ -286,7 +319,7 @@ int main()
 			{
 				bool tempB = false;
 				do {
-					std::cout << "There is no 'files.txt'. Would you like to create it?\n";
+					std::cout << Crop("There is no 'files.txt'. Would you like to create it?", maxLength);
 					std::string tempS;
 					std::cin >> tempS;
 					if (tempS == "Yes" || tempS == "yes")
@@ -306,13 +339,14 @@ int main()
 					}
 				} while (tempB);
 			}
+			WhiteLine();
 		}
 		/****************************************************** SYNTAX INFORMATION ********************************************************************/
 		{
 			bool tempB = false;
 			do {
 				std::cout << "You now just have to set up\n-the start variables of your code (between '#Head' and '#Program') and\n-the code itself(after '#Program')\n";
-				std::cout << "Shall I inform you about some syntax?\n";
+				std::cout << Crop("Shall I inform you about some syntax?", maxLength);
 				std::string tempS;
 				std::cin >> tempS;
 				if (tempS == "Yes" || tempS == "yes")
