@@ -345,6 +345,7 @@ int main()
 	file << timeName << " " << time << "\n";
 	file << repeatingName << " " << repeating << "\n";
 	file << settingsEnd << "\n";
+	file << time << " = 0\n";
 	file << headEnd;
 
 	/****************************************************** END ********************************************************************/
