@@ -18,7 +18,7 @@ std::string ReadNumberStr(std::string question)
 		}
 		catch (const std::exception&)
 		{
-			std::cout << "That is not a number. Please enter again.\n";
+			std::cout << "Das ist keine Zahl. Bitte gibt es erneut ein.\n";
 			tempS = "";
 			tempB = true;
 		}
@@ -40,7 +40,7 @@ int ReadNumberInt(std::string question)
 		}
 		catch (const std::exception&)
 		{
-			std::cout << "That is not a number. Please enter again.\n";
+			std::cout << "Das ist keine Zahl. Bitte gibt es erneut ein.\n";
 			tempB = true;
 		}
 	} while (tempB);
@@ -56,7 +56,7 @@ int ReadNumberIntRestricted(std::string question, int low, int high)
 		if (i < low || i > high)
 		{
 			tempB = true;
-			std::cout << "This number is not in range from " << low << " to " << high << ".\n";
+			std::cout << "Diese Zahl liegt nicht zwischen " << low << " und " << high << ".\n";
 		}
 		else
 		{
@@ -120,7 +120,7 @@ int main()
 	{
 		/****************************************************** NAME ********************************************************************/
 		{
-			std::cout << Crop("What should your new simulation be called?", maxLength);
+			std::cout << Crop("Was soll der Name deiner neuen Simulation sein?", maxLength);
 			std::cin >> name;
 			std::string nameDouble = name;
 			std::string lastChars;
@@ -143,17 +143,17 @@ int main()
 		}
 		/****************************************************** TIME VARIABLE ********************************************************************/
 		{
-			std::cout << Crop("Which name does your time variable have?", maxLength);
+			std::cout << Crop("Welchen Namen hat deine Zeitvariable?", maxLength);
 			std::cin >> time;
 			WhiteLine();
 		}
 		/****************************************************** Y VARIABLES ********************************************************************/
 		{
-			int nIYVars = ReadNumberInt(Crop("How many different variables do you want to feature on the y axis?", maxLength));
+			int nIYVars = ReadNumberInt(Crop("Wie viele Variablen sollen auf der y-Achse dargestellt werden?", maxLength));
 			for (int i = 0; i < nIYVars; )
 			{
-				std::stringstream tempSS("Enter your ");
-				tempSS << ++i << ". y variable!";
+				std::stringstream tempSS("");
+				tempSS << "Gib deine " << ++i << ". y Variable ein!";
 				std::cout << Crop(tempSS.str(), maxLength);
 				std::string temp;
 				std::cin >> temp;
@@ -164,31 +164,31 @@ int main()
 		}
 		/****************************************************** REPEATING VALUE ********************************************************************/
 		{
-			std::cout << "The Engine calculates your code several times per second.\nYou can speed things up or slow them down also later on.\nThis value is ranged from 5 to 1200 per second.\n";
-			repeating = ReadNumberStrRestricted(Crop("So, how often should the program execute your code per second at the start?", maxLength), 5, 1200);
+			std::cout << "Die Engine berechnet deinen Code mehrmals pro Sekunde.\nDu kannst dies nachher noch beschleunigen oder verlangsamen.\nDies reicht von 5 bis 1200 Berechnungen pro Sekunde.\n";
+			repeating = ReadNumberStrRestricted(Crop("Also, wie oft soll das Programm deinen Code zu Beginn berechnen?", maxLength), 5, 1200);
 			WhiteLine();
 		}
 		/****************************************************** AXIS COLOR ********************************************************************/
 		{
 			bool tempB = false;
 			do {
-				std::cout << "Next, enter the color of the axis, please.\n" << Crop("Do you want to type it in as RGB values?", maxLength);
+				std::cout << "Gib jetzt bitte die Farbe der Achsen ein.\n" << Crop("Willst du das RGB-codiert machen (mehr Auswahl)?", maxLength);
 				std::string tempS;
 				std::cin >> tempS;
-				if (tempS == "Yes" || tempS == "yes")
+				if (tempS == "Ja" || tempS == "ja")
 				{
 					tempB = false;
-					axisColor += ReadNumberStrRestricted(Crop("Now enter the 'red' part:", maxLength), 0, 255) + " ";
-					axisColor += ReadNumberStrRestricted(Crop("Now enter the 'green' part:", maxLength), 0, 255) + " ";
-					axisColor += ReadNumberStrRestricted(Crop("Now enter the 'blue' part: ", maxLength), 0, 255);
+					axisColor += ReadNumberStrRestricted(Crop("Gib nun den roten Teil ein:", maxLength), 0, 255) + " ";
+					axisColor += ReadNumberStrRestricted(Crop("Gib nun den gr\x81nen Teil ein:", maxLength), 0, 255) + " ";
+					axisColor += ReadNumberStrRestricted(Crop("Gib nun den blauen Teil ein: ", maxLength), 0, 255);
 				}
-				else if (tempS == "No" || tempS == "no")
+				else if (tempS == "Nein" || tempS == "nein" || tempS == "ne")
 				{
 					tempB = false;
 					std::string tempS;
-					tempS += "These colors are available:\n";
-					tempS += "White (1) - Gray (2) - Light Gray (3) - Red (4) - Green (5)\nBlue (6) - Yellow (7) - Cyan (8) - Magenta (9) - Orange (10)\n";
-					tempS += Crop("Please pick yours and enter the specific number!", maxLength);
+					tempS += "Diese Farben gibt es zur Auswahl:\n";
+					tempS += "Weiss (1) - Grau (2) - Hellgrau (3) - Rot (4) - Gr\x81n (5)\nBlau (6) - Gelb (7) - Cyan (8) - Magenta (9) - Orange (10)\n";
+					tempS += Crop("Such deine aus und gib die entsprechende Nummer ein!", maxLength);
 					int tempI = ReadNumberIntRestricted(tempS, 1, 10);
 					switch (tempI)
 					{
@@ -227,7 +227,7 @@ int main()
 				else
 				{
 					tempB = true;
-					std::cout << "Didn't understand you. Sorry :(\nPlease enter 'yes' or 'no'.\n";
+					std::cout << "Das habe ich nicht verstanden. Sorry :(\nBitte gib 'ja' oder 'nein' ein.\n";
 				}
 			} while (tempB);
 			WhiteLine();
@@ -237,23 +237,23 @@ int main()
 		{
 			bool tempB = false;
 			do {
-				std::cout << "Last step: enter the color of the graph, please.\n" << Crop("Do you want to type it in as RGB values?", maxLength);
+				std::cout << "Letzter Schritt: Gib bitte die Farbe des Graphen ein.\n" << Crop("Willst du das RGB-codiert machen (mehr Auswahl)?", maxLength);
 				std::string tempS;
 				std::cin >> tempS;
-				if (tempS == "Yes" || tempS == "yes")
+				if (tempS == "Ja" || tempS == "ja")
 				{
 					tempB = false;
-					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'green' part:", maxLength), 0, 255) + " ";
-					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'blue' part: ", maxLength), 0, 255);
-					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'red' part:", maxLength), 0, 255) + " ";
+					graphColor += ReadNumberStrRestricted(Crop("Gib nun den roten Teil ein:", maxLength), 0, 255) + " ";
+					graphColor += ReadNumberStrRestricted(Crop("Gib nun den gr\x81nen Teil ein: ", maxLength), 0, 255);
+					graphColor += ReadNumberStrRestricted(Crop("Gib nun den blauen Teil ein:", maxLength), 0, 255) + " ";
 				}
-				else if (tempS == "No" || tempS == "no")
+				else if (tempS == "Nein" || tempS == "nein" || tempS == "ne")
 				{
 					tempB = false;
 					std::string tempS;
-					tempS += "These colors are available:\n";
-					tempS += "White (1) - Gray (2) - Light Gray (3) - Red (4) - Green (5)\nBlue (6) - Yellow (7) - Cyan (8) - Magenta (9) - Orange (10)\n";
-					tempS += Crop("Please pick yours and enter the specific number!", maxLength);
+					tempS += "Diese Farben gibt es zur Auswahl:\n";
+					tempS += "Weiss (1) - Grau (2) - Hellgrau (3) - Rot (4) - Gr\x81n (5)\nBlau (6) - Gelb (7) - Cyan (8) - Magenta (9) - Orange (10)\n";
+					tempS += Crop("Such deine aus und gib die entsprechende Nummer ein!", maxLength);
 					int tempI = ReadNumberIntRestricted(tempS, 1, 10);
 					switch (tempI)
 					{
@@ -292,7 +292,7 @@ int main()
 				else
 				{
 					tempB = true;
-					std::cout << "Didn't understand you. Sorry :(\nPlease enter 'yes' or 'no'.\n";
+					std::cout << "Das habe ich nicht verstanden. Sorry :(\nBitte gib 'ja' oder 'nein' ein.\n";
 				}
 			} while (tempB);
 			WhiteLine();
@@ -313,29 +313,29 @@ int main()
 				setFile += name;
 				setFile.shrink_to_fit();
 				settingsFileOut.write(setFile.c_str(), setFile.size());
-				std::cout << "Succesfully added this new simulation to your 'files.txt'\n";
+				std::cout << "Diese Simulation wurde erfolgreich in dein 'files.txt' hinzugef\x81gt.\n";
 			}
 			else
 			{
 				bool tempB = false;
 				do {
-					std::cout << Crop("There is no 'files.txt'. Would you like to create it?", maxLength);
+					std::cout << Crop("Ich kann keine 'files.txt' finden. Soll sie erstellt werden?", maxLength);
 					std::string tempS;
 					std::cin >> tempS;
-					if (tempS == "Yes" || tempS == "yes")
+					if (tempS == "Ja" || tempS == "ja")
 					{
 						std::ofstream newSettingsFile(settingsFileName);
 						newSettingsFile << name;
-						std::cout << "Succesfully created a new 'files.txt' for you.\n";
+						std::cout << "Ich habe 'files.txt' erfolgreich f\x81r dich bereitgestellt.\n";
 					}
-					else if (tempS == "No" || tempS == "no")
+					else if (tempS == "Nein" || tempS == "nein" || tempS == "ne")
 					{
-						std::cout << "Then you have to add '" << name << "' to your 'files.txt' yourself in order to make it working.\n";
+						std::cout << "Dann musst du '" << name << "' selbst zu deiner 'files.txt' hinzuf\x81gen um die Engine korrekt arbeiten zu lassen.\n";
 					}
 					else
 					{
 						tempB = true;
-						std::cout << "Didn't understand you. Sorry :(\nPlease enter 'yes' or 'no'.\n";
+						std::cout << "Das habe ich nicht verstanden. Sorry :(\nBitte gib 'ja' oder 'nein' ein.\n";
 					}
 				} while (tempB);
 			}
@@ -345,28 +345,28 @@ int main()
 		{
 			bool tempB = false;
 			do {
-				std::cout << "You now just have to set up\n-the start variables of your code (between '#Head' and '#Program') and\n-the code itself(after '#Program')\n";
-				std::cout << Crop("Shall I inform you about some syntax?", maxLength);
+				std::cout << "Du musst jetzt nur noch\n-die Startvariablen (zwischen '#Head' und '#Program') und\n-den Code selbst(nach '#Program')\nhinzuf\x81gen\n";
+				std::cout << Crop("Soll ich dich ein bisschen \x81 \bber den Syntax informieren?", maxLength);
 				std::string tempS;
 				std::cin >> tempS;
-				if (tempS == "Yes" || tempS == "yes")
+				if (tempS == "Ja" || tempS == "ja")
 				{
 					tempB = false;
-					std::cout << "\nFirst, you are able to use commentaries. Just put '//' in front of a line.\n";
-					std::cout << "Second, you have the possibility to use 'sin', 'cos', 'tan' and 'sqrt' (which is the square root) in front of braces.\n";
-					std::cout << "Third, if-statements are also an option: just write 'if (-condition-) -term-'!\n\n";
-					std::cout << "If you do something wrong, the program will let you know: There are plenty of exceptions build-in.\nRead them carefully to gain as much information about the problem as possible.\nIf you can't find it, contact me and I'll try to help.\n\n";
-					std::cout << "Now have fun with your simulation!";
+					std::cout << "\n1.) Kommentare sind eingebaut. Schreibe einfach '//' an den Zeilenanfang.\n";
+					std::cout << "2.) Weiterhin sind Winkelfunktionen vorhanden: du musst nur  'sin', 'cos', 'tan' oder 'sqrt' (das ist die Quadratwurzel) vor eine Klammer schreiben.\n";
+					std::cout << "3.) If-Pr\x81 \bfungen sind auch existent: du musst einfach nur 'if (-Bedingung-) -Term-' schreiben!\n\n";
+					std::cout << "Sollte ein Fehler auftreten, gibt das Programm eine Meldung aus: Es wurden viele Sicherheitspr\x81 \bfungen eingebaut.\nLies sie dir genau durch, um alle Informationen zu gewinnen.\nWenn du den Fehler trotzdem nicht findest, erstelle einen Issue auf GitHub (@Fractum34254)\noder schreib mir und ich werde versuchen zu helfen.\n\n";
+					std::cout << "Jetzt viel Freude mit deiner neuen Simulation!";
 				}
-				else if (tempS == "No" || tempS == "no")
+				else if (tempS == "Nein" || tempS == "nein" || tempS == "ne")
 				{
 					tempB = false;
-					std::cout << "Well, then have fun with your new simulation!";
+					std::cout << "Dann viel Freude mit deiner neuen Simulation!";
 				}
 				else
 				{
 					tempB = true;
-					std::cout << "Didn't understand you. Sorry :(\nPlease enter 'yes' or 'no'.\n";
+					std::cout << "Das habe ich nicht verstanden. Sorry :(\nBitte gib 'ja' oder 'nein' ein.\n";
 				}
 			} while (tempB);
 		}

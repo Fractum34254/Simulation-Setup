@@ -1,0 +1,8 @@
+Axis Color: 255 255 255
+Graph Color: 0 255 0
+y Values: q w e
+Time variable: t
+Repeating per second: 200
+#Head
+t = 0
+#Program

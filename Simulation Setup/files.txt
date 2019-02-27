@@ -7,3 +7,5 @@ test.txt
 test5.txt
 test6.txt
 test7.txt
+testDeutsch.txt
+testDeutsch2.txt
