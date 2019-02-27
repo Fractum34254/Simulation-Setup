@@ -152,8 +152,8 @@ int main()
 			int nIYVars = ReadNumberInt(Crop("How many different variables do you want to feature on the y axis?", maxLength));
 			for (int i = 0; i < nIYVars; )
 			{
-				std::stringstream tempSS("Enter your ");
-				tempSS << ++i << ". y variable!";
+				std::stringstream tempSS("");
+				tempSS << "Enter your " << ++i << ". y variable!";
 				std::cout << Crop(tempSS.str(), maxLength);
 				std::string temp;
 				std::cin >> temp;
@@ -243,9 +243,9 @@ int main()
 				if (tempS == "Yes" || tempS == "yes")
 				{
 					tempB = false;
-					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'green' part:", maxLength), 0, 255) + " ";
-					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'blue' part: ", maxLength), 0, 255);
 					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'red' part:", maxLength), 0, 255) + " ";
+					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'green' part: ", maxLength), 0, 255);
+					graphColor += ReadNumberStrRestricted(Crop("Now enter the 'blue' part:", maxLength), 0, 255) + " ";
 				}
 				else if (tempS == "No" || tempS == "no")
 				{
